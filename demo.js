@@ -30,9 +30,9 @@
     Douyu_AutoExpand: true,
 
     // 里程碑奖励等级[0-5] 第1-6档（里程碑天数从小到大）
-    level: 0,
+    level: 2,
     // 是否为补货兑换(仅平台为B站时才有效，将运行时间调整为0点)
-    replenishment: false,
+    replenishment: true,
   }
 
   // 获取平台
@@ -82,6 +82,16 @@
         document.querySelectorAll('div[title="10经验值"]+button')[0].click()
       }, 100)
     }
+  // 根据平台选择检测时间 B站需求更高的点击频率
+  let looptime = 100
+  switch (platform) {
+      case '哔哩哔哩':
+          looptime = 5
+          break;
+      default:
+          looptime = 100
+          break;
+  }
     setInterval(() => {
       let exchangeBtn = (function () {
         switch (platform) {
@@ -96,7 +106,7 @@
         }
       })()
       exchangeBtn.click()
-    }, 100)
+    }, looptime)
   }
 
   // 抢码功能
